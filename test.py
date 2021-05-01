@@ -10,7 +10,7 @@ if __name__ == "__main__":
         base_addr = base_addr+"/"
 
     print('To get add new sensor use POST method on /sensors,\n\
-    it takes an argument as the following: {"address": <address>, "owner": <owner>}\n\
+    it takes the new object as an argument, i.e: {"address": <address>, "owner": <owner>}\n\
     it returns a message and id of newly created device:')
     print('$ requests.post(base_addr + "sensors", {"address": "Mogilska 43, 31-545 Kraków, Polska", "owner": "Adam Kitel"}).json()')
     print(requests.post(base_addr + "sensors", {"address": "Mogilska 43, 31-545 Kraków, Polska", "owner": "Adam Kitel"}).json())
@@ -26,10 +26,26 @@ if __name__ == "__main__":
     print(requests.get(base_addr + "sensors").json())
     print()
 
-    print("To get sensor with given ID use GET method on /sensors/<int:ID>,\n\
+    print("To get the sensor with given ID use GET method on /sensors/<int:ID>,\n\
     it returns an object representing single device:")
     print('$ requests.get(base_addr + "sensor/1").json()')
     print(requests.get(base_addr + "sensor/1").json())
+    print()
+
+    print('To uptdate the sensor with given ID use PATCH method on /sensors/<int:ID>\n\
+    it takes an object with specified changes as an argument, i.e: {"address": <address>, "owner": <owner>}:\n\
+    not every field is required so one property at a time, or both can be updated:')
+    print('$ requests.patch(base_addr + "sensor/0", {"address": "Nowa 20, 33-333 Wrocław, Polska"}).json()')
+    print(requests.patch(base_addr + "sensor/0", {"address": "Nowa 20, 33-333 Wrocław, Polska"}))
+    print('$ requests.patch(base_addr + "sensor/0", {"owner": "Jan Nowacki"})')
+    print(requests.patch(base_addr + "sensor/0", {"owner": "Jan Nowacki"}))
+    print('$ requests.patch(base_addr + "sensor/1", {"address": "Zmienna 65, 11-123 Ełk, Polska", "owner": "Lech Zmieniony"})')
+    print(requests.patch(base_addr + "sensor/1", {"address": "Zmienna 65, 11-123 Ełk, Polska", "owner": "Lech Zmieniony"}))
+    print()
+
+    print('We can see all the changes using GET on /sensors')
+    print('$ requests.get(base_addr + "sensors").json()')
+    print(requests.get(base_addr + "sensors").json())
     print()
 
     print("To delete sensor with given ID use DELETE method on /sensors/<int:ID>,\n\
