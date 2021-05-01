@@ -20,14 +20,28 @@ if __name__ == "__main__":
     print(requests.post(base_addr + "sensors", {"address": "Kremowa 21, 37-200 Wadowice, Polska", "owner": "Karol Adamczyk"}).json())
     print()
 
+    print("To get all sensors use GET method on /sensors,\n\
+    it returns an object of all devices with it's ID's as keys:")
+    print('$ requests.get(base_addr + "sensors").json()')
+    print(requests.get(base_addr + "sensors").json())
+    print()
+
     print("To get sensor with given ID use GET method on /sensors/<int:ID>,\n\
     it returns an object representing single device:")
     print('$ requests.get(base_addr + "sensor/1").json()')
     print(requests.get(base_addr + "sensor/1").json())
     print()
 
-    print("To get all sensors use GET method on /sensors,\n\
-    it returns an object of all devices with it's ID's as keys:")
+    print("To delete sensor with given ID use DELETE method on /sensors/<int:ID>,\n\
+        it returns Response [204] if there was an object with given ID:")
+    print('$ requests.delete(base_addr + "sensor/1")')
+    print(requests.delete(base_addr + "sensor/1"))
+    print("\tor it returns a message if there was no object with given ID:")
+    print('$ requests.delete(base_addr + "sensor/6").json()')
+    print(requests.delete(base_addr + "sensor/6").json())
+    print()
+
+    print("We can see the sensor with ID=1 was deleted using GET on /sensors")
     print('$ requests.get(base_addr + "sensors").json()')
     print(requests.get(base_addr + "sensors").json())
     print()
