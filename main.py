@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource, reqparse, abort
 from sensor import Sensor
 
 app = Flask(__name__)
@@ -10,6 +10,15 @@ sensors_post_args.add_argument("address", type=str, help="The address of the sen
 sensors_post_args.add_argument("owner", type=str, help="The name of the owner of the sensor is required", required=True)
 
 sensors = {}
+
+def assert_sensor_exist(id):
+    if id not in sensors:
+        abort(404, message="No sensor with given id")
+
+class Sensor_res(Resource):
+    def get(self, id):
+        assert_sensor_exist(id)
+        return sensors[id].__dict__()
 
 class Sensors_res(Resource):
     def __init__(self):
@@ -24,6 +33,7 @@ class Sensors_res(Resource):
         self.counter += 1
         return {"message": "posted", "id": self.counter-1}, 201
 
+api.add_resource(Sensor_res, "/sensor/<int:id>")
 api.add_resource(Sensors_res, "/sensors")
 
 if __name__ == "__main__":

@@ -9,19 +9,26 @@ if __name__ == "__main__":
     if not base_addr.endswith("/"):
         base_addr = base_addr+"/"
 
-    print("To get add new sensor use POST method on /sensors,\n\
-    it returns a message and id of newly created device:")
+    print('To get add new sensor use POST method on /sensors,\n\
+    it takes an argument as the following: {"address": <address>, "owner": <owner>}\n\
+    it returns a message and id of newly created device:')
     print('$ requests.post(base_addr + "sensors", {"address": "Mogilska 43, 31-545 Kraków, Polska", "owner": "Adam Kitel"}).json()')
     print(requests.post(base_addr + "sensors", {"address": "Mogilska 43, 31-545 Kraków, Polska", "owner": "Adam Kitel"}).json())
     print()
     print("Let's add another one:")
-    print('$ requests.post(base_addr + "sensors", {"address": "Mogilska 43, 31-545 Kraków, Polska", "owner": "Adam Kitel"}).json()')
+    print('$ requests.post(base_addr + "sensors", {"address": "Kremowa 21, 37-200 Wadowice, Polska", "owner": "Karol Adamczyk"}).json()')
     print(requests.post(base_addr + "sensors", {"address": "Kremowa 21, 37-200 Wadowice, Polska", "owner": "Karol Adamczyk"}).json())
     print()
 
+    print("To get sensor with given ID use GET method on /sensors/<int:ID>,\n\
+    it returns an object representing single device:")
+    print('$ requests.get(base_addr + "sensor/1").json()')
+    print(requests.get(base_addr + "sensor/1").json())
+    print()
 
     print("To get all sensors use GET method on /sensors,\n\
     it returns an object of all devices with it's ID's as keys:")
     print('$ requests.get(base_addr + "sensors").json()')
     print(requests.get(base_addr + "sensors").json())
+    print()
 
