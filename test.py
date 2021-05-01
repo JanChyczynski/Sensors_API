@@ -1,8 +1,8 @@
 import requests
 
 if __name__ == "__main__":
-    base_addr = "http://127.0.0.1:5000/"
-    # base_addr = input("Enter base address of the running API: ")
+    # base_addr = "http://127.0.0.1:5000/"
+    base_addr = input("Enter base address of the running API: ")
     if not(base_addr.startswith("http://") or base_addr.startswith("https://")):
         base_addr = "http://" + base_addr
 
